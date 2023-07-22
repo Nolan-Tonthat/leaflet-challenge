@@ -82,7 +82,34 @@ function createMap(){
             })
     }
 
-   
+    //create legend indicating depths and colors
+    let legend = L.control({position: "bottomright"})
+
+    //add each depth and corresponding color to legend
+    legend.onAdd = function(map){
+        let div = L.DomUtil.create("div","legend")
+
+        //range of depths
+        let depthArray = ["-10-10","10-30","30-50","50-70","70-90","90+"]
+
+        //colors starting from dark green to red (gradient)
+        let colorArray = ["background:#69B34C", "background:#ACB334","background:#FAB733","background:#FF8E15","background:#FF4E11","background:#FF0D0D"]
+        let labels = []
+        let legendTitle = `<h3>Depth (km)</h3><br>` 
+
+        //adding title to HTML
+        div.innerHTML += legendTitle
+        
+        //inserting color to HTML
+        for (i in depthArray){
+            div.innerHTML += `<i style=${colorArray[i]}></i>${depthArray[i]}<br>`
+        }
+        
+        return div
+    
+    }
+    //add legend to map
+    legend.addTo(map)
 
  })
 }
